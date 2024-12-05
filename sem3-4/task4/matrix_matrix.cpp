@@ -40,9 +40,9 @@ void block_matrix_multiplication(const std::vector<std::vector<double>> &matrixA
 }
 
 int main() {
-    std::vector<int> matrix_sizes = {1000, 2000, 4000, 8000};
+    std::vector<int> matrix_sizes = {500, 1000, 2000, 3000};
     std::vector<int> threads_count = {2, 4, 8, 16};
-    std::vector<int> block_sizes = {128, 256, 512}; // Размеры блоков
+    std::vector<int> block_sizes = {192, 256, 320}; // Размеры блоков
 
     // Открытие файла с буферизацией
     std::ofstream csv_file("block_matrix_results_optimized.csv", std::ios::out | std::ios::trunc);
