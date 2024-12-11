@@ -5,8 +5,9 @@ rm -f results_summary_*.csv
 
 # Параметры экспериментов
 GRID_SIZES=(10 100 1000 2000 3000)
+# GRID_SIZES=(10 100 500 1000)
 EPSILON=0.0001
-MPI_PROCESSES=(2 4) # Количество процессов для MPI
+MPI_PROCESSES=(2 4 6) # Количество процессов для MPI
 
 # Проверка существования программы
 check_program() {
@@ -102,7 +103,7 @@ run_mpi() {
 
 # Запуск всех экспериментов
 # run_sequential
-run_openmp
+# run_openmp
 run_mpi
 
 echo "All experiments completed."
