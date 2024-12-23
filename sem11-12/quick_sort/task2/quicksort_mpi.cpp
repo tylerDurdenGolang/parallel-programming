@@ -54,14 +54,17 @@ int main(int argc, char* argv[]) {
         std::generate(arr.begin(), arr.end(), rand);
     }
 
-    // Начало измерения времени
+    // Синхронизация перед началом замера времени
+    MPI_Barrier(MPI_COMM_WORLD);
     double startTime = MPI_Wtime();
 
+    // Распределение данных между процессами
     MPI_Scatter(arr.data(), chunkSize, MPI_INT, chunk.data(), chunkSize, MPI_INT, 0, MPI_COMM_WORLD);
 
     // Локальная сортировка
     std::sort(chunk.begin(), chunk.end());
 
+    // Сбор отсортированных частей
     MPI_Gather(chunk.data(), chunkSize, MPI_INT, arr.data(), chunkSize, MPI_INT, 0, MPI_COMM_WORLD);
 
     // Слияние отсортированных частей
@@ -75,7 +78,8 @@ int main(int argc, char* argv[]) {
         }
     }
 
-    // Конец измерения времени
+    // Синхронизация перед завершением замера времени
+    MPI_Barrier(MPI_COMM_WORLD);
     double endTime = MPI_Wtime();
 
     if (rank == 0) {
